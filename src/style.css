@@ -61,7 +61,6 @@ body {
 }
 .siteList .site {
   width: 150px;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,6 +68,7 @@ body {
   background: white;
   border-radius: 4px;
   padding: 20px 0;
+  position: relative;
 }
 .siteList .site > .logo {
   width: 64px;
@@ -82,6 +82,11 @@ body {
 .siteList .site > .link {
   font-size: 14px;
   margin-top: 4px;
+}
+.siteList .site > .close {
+  position: absolute;
+  right: 2px;
+  top: 0;
 }
 .siteList .addButton {
   border: 1px solid #ddd;

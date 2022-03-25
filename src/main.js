@@ -23,35 +23,57 @@ const hashMap = xmObject || [
   },
 ];
 const simplifyUrl = (url) => {
-  return url.replace("https://", "").replace("http://", "").replace("www.", "");
+  return url
+    .replace("https://", "")
+    .replace("http://", "")
+    .replace("www.", "")
+    .replace(/\/.*/, "");
 };
 const render = () => {
   $siteList.find("li:not(.lastSite)").remove();
-  hashMap.forEach((node) => {
-    const $li = $(`<li>
-          <a href="${node.url}">
-          <div class="site">
-            <div class="logo">
-                ${node.logo}
-            </div>
+  hashMap.forEach((node, index) => {
+    console.log(index);
+    const $li = $(`
+        <li>
+
+            <div class="site">
+            <div class="logo">${node.logo}</div>
             <div class="link">${simplifyUrl(node.url)}</div>
-          </div>
-        </a>  
-          </li>`).insertBefore($lastLi);
+              <div class="close">
+                <svg class="icon" aria-hidden="true">
+                  <use xlink:href="#icon-close"></use>
+                </svg>
+              </div>
+            </div>
+        </li>`).insertBefore($lastLi);
+    $li.on("click", () => {
+      // 代替 a 标签
+      window.open(node.url);
+    });
+    $li.on("click", ".close", (e) => {
+      e.stopPropagation(); // 阻止冒泡
+      console.log(hashMap);
+      hashMap.splice(index, 1); // 删除对应下标的图标
+      render();
+    });
   });
 };
 render();
 $(".addButton").on("click", () => {
   let url = window.prompt("输入你的网址？？");
-  if (url.indexOf("https") !== 0) {
-    url = "https://" + url;
+  if (url === "") {
+    window.alert("你输入的网址为空！！");
+  } else {
+    if (url.indexOf("https") !== 0) {
+      url = "https://" + url;
+    }
+    hashMap.push({
+      logo: simplifyUrl(url)[0].toUpperCase(),
+      logoType: "text",
+      url: url,
+    });
+    render();
   }
-  hashMap.push({
-    logo: simplifyUrl(url)[0].toUpperCase(),
-    logoType: "text",
-    url: url,
-  });
-  render();
 });
 window.onbeforeunload = () => {
   const string = JSON.stringify(hashMap);
