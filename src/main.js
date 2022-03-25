@@ -4,21 +4,27 @@ const xiaoming = window.localStorage.getItem("xiaoming");
 const xmObject = JSON.parse(xiaoming);
 const hashMap = xmObject || [
   {
-    logo: "./images/acfun.jpg",
-    logoType: "image",
-    url: "https://www.acfun.cn/",
+    logo: "A",
+    // logo: "./images/acfun.jpg",
+    // logoType: "image",
+    url: "https://www.acfun.cn",
   },
   {
-    logo: "./images/bilibili.jpg",
-    logoType: "image",
-    url: "https://www.bilibili.com/",
+    logo: "B",
+    // logo: "./images/bilibili.jpg",
+    // logoType: "image",
+    url: "https://www.bilibili.com",
   },
   {
-    logo: "./images/aiqiyi.png",
-    logoType: "image",
-    url: "https://www.iqiyi.com/",
+    logo: "Q",
+    // logo: "./images/aiqiyi.png",
+    // logoType: "image",
+    url: "https://www.iqiyi.com",
   },
 ];
+const simplifyUrl = (url) => {
+  return url.replace("https://", "").replace("http://", "").replace("www.", "");
+};
 const render = () => {
   $siteList.find("li:not(.lastSite)").remove();
   hashMap.forEach((node) => {
@@ -26,9 +32,9 @@ const render = () => {
           <a href="${node.url}">
           <div class="site">
             <div class="logo">
-                ${node.logo[0]}
+                ${node.logo}
             </div>
-            <div class="link">${node.url}</div>
+            <div class="link">${simplifyUrl(node.url)}</div>
           </div>
         </a>  
           </li>`).insertBefore($lastLi);
@@ -41,7 +47,7 @@ $(".addButton").on("click", () => {
     url = "https://" + url;
   }
   hashMap.push({
-    logo: url[0],
+    logo: simplifyUrl(url)[0].toUpperCase(),
     logoType: "text",
     url: url,
   });
