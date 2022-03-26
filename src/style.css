@@ -30,6 +30,16 @@ body {
   display: flex;
   justify-content: space-between;
 }
+@media (min-width: 600px) {
+  .searchForm {
+    max-width: 500px;
+    margin-top: 200px;
+    margin-bottom: 60px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
 .searchForm > input {
   width: 100%;
   margin-right: 10px;
@@ -49,15 +59,35 @@ body {
 }
 
 .globalMain {
+  max-width: 950px;
+  margin-right: auto;
+  margin-left: auto;
 }
+
 .siteList {
   display: flex;
   flex-wrap: wrap;
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
   justify-content: space-between;
+}
+@media (min-width: 600px) {
+  .siteList {
+    margin-left: 0;
+    margin-right: -50px;
+    justify-content: flex-start;
+  }
 }
 .siteList > li {
   margin-bottom: 20px;
+  /* margin-right: 50px; */
+}
+@media (min-width: 600px) {
+  .siteList > li {
+    margin-right: 50px;
+  }
 }
 .siteList .site {
   width: 150px;
@@ -69,6 +99,7 @@ body {
   border-radius: 4px;
   padding: 20px 0;
   position: relative;
+  cursor: pointer;
 }
 .siteList .site > .logo {
   width: 64px;
@@ -87,7 +118,13 @@ body {
   position: absolute;
   right: 2px;
   top: 0;
+  display: none;
+  cursor: default;
 }
+.siteList .site:hover > .close {
+  display: block;
+}
+
 .siteList .addButton {
   border: 1px solid #ddd;
   background: white;
@@ -113,7 +150,4 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.globalFooter {
 }

@@ -32,7 +32,6 @@ const simplifyUrl = (url) => {
 const render = () => {
   $siteList.find("li:not(.lastSite)").remove();
   hashMap.forEach((node, index) => {
-    console.log(index);
     const $li = $(`
         <li>
 
@@ -40,7 +39,7 @@ const render = () => {
             <div class="logo">${node.logo}</div>
             <div class="link">${simplifyUrl(node.url)}</div>
               <div class="close">
-                <svg class="icon" aria-hidden="true">
+                <svg class="icon">
                   <use xlink:href="#icon-close"></use>
                 </svg>
               </div>
@@ -52,7 +51,6 @@ const render = () => {
     });
     $li.on("click", ".close", (e) => {
       e.stopPropagation(); // 阻止冒泡
-      console.log(hashMap);
       hashMap.splice(index, 1); // 删除对应下标的图标
       render();
     });
@@ -79,3 +77,12 @@ window.onbeforeunload = () => {
   const string = JSON.stringify(hashMap);
   window.localStorage.setItem("xiaoming", string);
 };
+
+$(document).on("keypress", (e) => {
+  const key = e.key;
+  for (let i = 0; i < hashMap.length; i++) {
+    if (hashMap[i].logo.toLowerCase() === key) {
+      window.open(hashMap[i].url);
+    }
+  }
+});
