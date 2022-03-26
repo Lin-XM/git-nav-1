@@ -61,7 +61,9 @@ $(".addButton").on("click", () => {
   let url = window.prompt("输入你的网址？？");
   if (url === "") {
     window.alert("你输入的网址为空！！");
-  } else {
+  }else if (url[0] === " ") {
+    window.alert("你输入的网址不合法！！");
+  }else {
     if (url.indexOf("https") !== 0) {
       url = "https://" + url;
     }
